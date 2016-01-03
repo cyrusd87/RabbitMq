@@ -1,4 +1,4 @@
-package First;
+package One;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -7,25 +7,18 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-public class Sender { 
+public class Sender {
 
     private static ConnectionFactory connectionFactory;
     private static String queueName;
 
-    public Sender() {
+    public Sender(String host, String queueName) {
+        this.queueName = queueName;
         connectionFactory = new ConnectionFactory();
-    }
-
-    public static void SetHost(String host) {
         connectionFactory.setHost(host);
     }
 
-    public static void SetQueueName(String queueName) {
-
-        queueName = queueName;
-    }
-
-    public static void Send(String message) throws IOException, TimeoutException {
+    public void Send(String message) throws IOException, TimeoutException {
 
         Connection connection = connectionFactory.newConnection();
         Channel channel = connection.createChannel();
